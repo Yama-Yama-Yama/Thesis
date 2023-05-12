@@ -56,8 +56,8 @@ def prediction():
 def loadmodel():
     global model1
     global model2
-    model1 = load_model('D:./Models/model20E91ALRRCHKPTES.h5')
-    model2 = load_model('D:./Models/model232B93A.h5')
+    model1 = load_model('./Models/model20E91ALRRCHKPTES.h5')
+    model2 = load_model('./Models/backup.h5')
     return
 
 
