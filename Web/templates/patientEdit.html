@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/materialize.css')}}">
+
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal();
+        }); 
+    </script>
+
+    <title>Edit patient</title>
+</head>
+
+<body>
+    <main>
+        <div id="nav">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.sidenav').sidenav();
+                });
+            </script>
+
+            <nav class="blue darken-1" style="padding:0px 10px; position: fixed; z-index: 1;">
+                <div class="nav-wrapper">
+                    <a href="/home" class="brand-logo"><img class="responsive-img"
+                            src="{{url_for('static', filename='logo/Logo3.png')}}" alt="Logo" width="65"
+                            height="65"></a>
+
+                    <a href="#" class="sidenav-trigger" data-target="mobile-nav">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/choose">Predict</a></li>
+                        <li class="active"><a href="/patients">Patients</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <ul class="sidenav" id="mobile-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/choose">Predict</a></li>
+                <li><a href="/patients">Patients</a></li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="row" style="padding-top: 5rem; position:static;">
+                <form class="col s12" method="POST">
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input placeholder="First Name" id="firstName" type="text" name="FirstNameText"
+                                value="{{patient_data['first_name']}}">
+                            <label for="title">First Name</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Middle Name" id="middleName" type="text" name="MiddleNameText"
+                                value="{{patient_data['middle_name']}}">
+                            <label for=" title">Middle Name</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Last Name" id="lastName" type="text" name="LastNameText"
+                                value="{{patient_data['last_name']}}">
+                            <label for=" title">Last Name</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input id="birthday" type="date" name="BirthdayText" class="datepicker"
+                                value="{{patient_data['birthday']}}">
+                        </div>
+                        <div class=" input-field col s4">
+                            <input placeholder="123456789" id="tajNumber" type="text" class="validate" name="TAJNumber"
+                                value="{{patient_data['taj']}}">
+                            <label for=" title">TAJ number</label>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input placeholder="example@example.com" id="email" type="text" name="EmailText"
+                                value="{{patient_data['email']}}">
+                            <label for="title">Email</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="+3600123123" id="phone" type="text" class="validate" name="MobileText"
+                                value="{{patient_data['phone']}}">
+                            <label for="title">Phone</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input placeholder="example@example.com" id="eContactEmail" type="text"
+                                name="EmergencyEmailText" value="{{patient_data['emergency_contact_email']}}">
+                            <label for="title">Emergency Contact Email</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="+3600123123" id="eContactPhone" type="text" name="EmergencyMobileText"
+                                value="{{patient_data['emergency_contact_phone']}}">
+                            <label for="title">Emergency Contact Phone</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="First Name" id="eContactFirstName" type="text"
+                                name="EmergencyFirstNameText" value="{{patient_data['emergency_contact_first_name']}}">
+                            <label for="title">Emergency Contact First Name</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Middle Name" id="eContactMiddleName" type="text"
+                                name="EmergencyMiddleNameText"
+                                value="{{patient_data['emergency_contact_middle_name']}}">
+                            <label for=" title">Emergency Contact Middle Name</label>
+                        </div>
+                        <div class="input-field col s4">
+                            <input placeholder="Last Name" id="eContactLastName" type="text"
+                                name="EmergencyLastNameText" value="{{patient_data['emergency_contact_last_name']}}">
+                            <label for=" title">Emergency Contact Last Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s3">
+                            <input placeholder="Country" id="countryName" type="text" name="CountryText"
+                                value="{{patient_data['country']}}">
+                            <label for="title">Country</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input placeholder="City" id="cityName" type="text" name="CityText"
+                                value="{{patient_data['city']}}">
+                            <label for="title">City</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input placeholder="Postal Code" id="postCode" type="text" name="PostText"
+                                value="{{patient_data['post_code']}}">
+                            <label for="title">Postal Code</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input placeholder="Street and number" id="streetName" type="text" name="StreetText"
+                                value="{{patient_data['street']}}">
+                            <label for="title">Street</label>
+                        </div>
+                    </div>
+
+                    <div class="input-field col s12 center-align">
+                        <button type="submit" class="waves-effect blue waves-light btn" name="submit_button"
+                            value="UpdatePatientData">Update</button>
+                    </div>
+
+                </form>
+            </div>
+            <div class="row">
+                <div class="col s7 center-align">
+                    <div>
+                        <a class="waves-effect waves-light btn modal-trigger blue darken-1"
+                            href="{{ url_for('predict', record_id = id) }}">Add
+                            Diagnoses</a>
+                    </div>
+                    <table class="responsive-table striped centered">
+                        <thead>
+                            <tr>
+                                <th>Diagnosis<br>ID</th>
+                                <th>Patient ID</th>
+                                <th>Name</th>
+                                <th>TAJ #</th>
+                                <th>Results</th>
+                                <th>Pictures</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data %}
+                            <div>
+                                <tr>
+                                    <form method="POST">
+                                        <td><input type="hidden" name="did" value="{{ item['did'] }}">{{ item['did'] }}
+                                        </td>
+                                        <td>{{ item['id'] }}</td>
+                                        <td>{{ item['first_name'] }} {{ item['middle_name'] }} {{ item['last_name'] }}
+                                        </td>
+                                        <td>{{ item['taj'] }}</td>
+                                        {% if item['result'][0] == 'P' %}
+                                        <td class="red accent-3">{{ item['result'] }}</td>
+                                        {% else %}
+                                        <td class="green accent-4">{{ item['result'] }}</td>
+                                        {% endif %}
+                                        <td><a href="{{url_for('static', filename = '/Images/'+item['image_name'])}}">{{
+                                                item['image_name'] }}</a></td>
+                                        <td><button type="submit" class="btn-floating red" name="submit_button"
+                                                value="remove_diagnoses"><i class="material-icons">remove</i></button>
+                                        </td>
+                                        <td><button type="submit" class="btn-floating blue darken-1"
+                                                name="submit_button" value="SelectDiagnosis"><i
+                                                    class="material-icons">arrow_back</i></button>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col s5 center-align">
+                    <div>
+                        <a class="waves-effect waves-light btn modal-trigger blue darken-1" href="#modal1">
+                            Add Treatment</a>
+                    </div>
+                    <table class="responsive-table striped centered">
+                        <thead>
+                            <tr>
+                                <th>Diagnosis ID</th>
+                                <th>Treatment ID</th>
+                                <th>Treatment</th>
+                                <th>Issued By</th>
+                                <th>Created At</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in treatment_data %}
+                            <div>
+                                <tr>
+                                    <form method="POST">
+                                        <td>{{ item['diagnosis_id'] }}</td>
+                                        <td><input type="hidden" name="id" value="{{ item['id'] }}">{{ item['id'] }}
+                                        </td>
+                                        <td>{{ item['treatment'] }}</td>
+                                        <td>{{ item['issued_by'] }}</td>
+                                        <td>{{ item['created_at'] }}</td>
+                                        <td><button type="submit" class="btn-floating red" name="submit_button"
+                                                value="remove_treatment"><i class="material-icons">remove</i></button>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Treatment</h4>
+                    <div class="col s6">
+                        <form method="post" action="{{url_for('edit_patient', record_id=id)}}"
+                            enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="Treatment" type="text" name="TreatmentText">
+                                    <label for="Treatment">Treatment</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="Issued" type="text" name="IssuedBy">
+                                    <label for="Issued">Issued By</label>
+                                </div>
+                                <div class="input-field col s12 center-align">
+                                    <button type="submit" class="waves-effect waves-light btn  blue"
+                                        name="submit_button" value="Treatment">Add</button>
+                                </div>
+                                <div class="col s12 center-align">
+                                    <a href="#!"
+                                        class="modal-action modal-close waves-effect waves-blue btn-flat">Close</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+    </main>
+</body>

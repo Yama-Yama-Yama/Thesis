@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/materialize.min.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/materialize.css')}}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal();
+        }); 
+    </script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <div id="nav">
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.sidenav').sidenav();
+                });
+            </script>
+
+            <nav class="blue darken-1" style="padding:0px 10px; position: fixed;">
+                <div class="nav-wrapper">
+                    <a href="/home" class="brand-logo"><img class="responsive-img"
+                            src="{{url_for('static', filename='logo/Logo3.png')}}" alt="Logo" width="65"
+                            height="65"></a>
+
+                    <a href="#" class="sidenav-trigger" data-target="mobile-nav">
+                        <i class="material-icons">menu</i>
+                    </a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="/">Home</a></li>
+                        <li class="active"><a href="/choose">Predict</a></li>
+                        <li><a href="/patients">Patients</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <ul class="sidenav" id="mobile-nav">
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/choose">Predict</a></li>
+                <li><a href="/patients">Patients</a></li>
+            </ul>
+        </div>
+
+        <div class="container" style="padding-top: 5rem;">
+            <div class="row">
+                <div class="col s6">
+                    {% if filename %}
+                    <div class="card center-align">
+                        <div class="card-image">
+                            <img class="responsive-img" src="{{url_for('static', filename = '/Images/'+filename)}}"
+                                alt="">
+                            {% if prediction %}
+                            <span class="card-title">{{prediction}}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="center-align">
+                            <form method="post" action="{{url_for('predict', record_id=id)}}"
+                                enctype="multipart/form-data">
+                                <button class="btn blue darken-1" type="submit" name="submit_button"
+                                    value="Predict">Predict
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if prediction %}
+
+                    {% endif %}
+                    <form method="post" action="{{url_for('predict', record_id=id)}}" enctype="multipart/form-data">
+                        <div class="row">
+                            <div>
+                                <div class="file-field input-field">
+                                    <div class="btn blue darken-1">
+                                        <span>Browse</span>
+                                        <input type="file" name="file" autocomplete="off" />
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text" placeholder="Upload Files" />
+                                    </div>
+                                </div>
+                                <button class="btn blue darken-1" type="submit" name="submit_button"
+                                    value="Submit">Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col s6">
+                    <table class="responsive-table striped centered">
+                        <thead>
+                            <tr>
+                                <th>Diagnosis ID</th>
+                                <th>Patient ID</th>
+                                <th>Name</th>
+                                <th>TAJ #</th>
+                                <th>Result</th>
+                                <th>Picture</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for item in data %}
+                            <div>
+                                <tr>
+                                    <form method="POST">
+                                        <td><input type="hidden" name="did" value="{{ item['did'] }}">{{ item['did'] }}
+                                        </td>
+                                        <td>{{ item['id'] }}</td>
+                                        <td>{{ item['first_name'] }} {{ item['middle_name'] }} {{ item['last_name'] }}
+                                        </td>
+                                        <td>{{ item['taj'] }}</td>
+                                        {% if item['result'][0] == 'P' %}
+                                        <td class="red accent-3">{{ item['result'] }}</td>
+                                        {% else %}
+                                        <td class="green accent-4">{{ item['result'] }}</td>
+                                        {% endif %}
+                                        <td><a href="{{url_for('static', filename = '/Images/'+item['image_name'])}}">{{
+                                                item['image_name'] }}</a></td>
+                                        <td><button type="submit" class="btn-floating blue darken-1"
+                                                name="submit_button" value="SelectDiagnosis"><i
+                                                    class="material-icons">arrow_back</i></button>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <table class="responsive-table striped centered">
+                        <thead>
+                            <tr>
+                                <th>Diagnosis ID</th>
+                                <th>Treatment ID</th>
+                                <th>Treatment</th>
+                                <th>Issued By</th>
+                                <th>Created At</th>
+                                <th>Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in treatment_data %}
+                            <div>
+                                <tr>
+                                    <form method="POST">
+                                        <td>{{ item['diagnosis_id'] }}</td>
+                                        <td><input type="hidden" name="id" value="{{ item['id'] }}">{{ item['id'] }}
+                                        </td>
+                                        <td>{{ item['treatment'] }}</td>
+                                        <td>{{ item['issued_by'] }}</td>
+                                        <td>{{ item['created_at'] }}</td>
+                                        <td><button type="submit" class="btn-floating red" name="submit_button"
+                                                value="RemoveTreatment"><i class="material-icons">remove</i></button>
+                                        </td>
+                                    </form>
+                                </tr>
+                            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div div class="col 3 offset-s4">
+                        <a class="waves-effect waves-light btn modal-trigger blue darken-1" href="#modal1">
+                            Add Treatment</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal1" class="modal">
+                <div class="modal-content">
+                    <h4>Treatment</h4>
+                    <div class="col s6">
+                        <form method="post" action="{{url_for('predict', record_id=id)}}" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input id="Treatment" type="text" name="TreatmentText">
+                                    <label for="Treatment">Treatment</label>
+                                </div>
+                                <div class="input-field col s12">
+                                    <input id="Issued" type="text" name="IssuedBy">
+                                    <label for="Issued">Issued By</label>
+                                </div>
+                                <div class="input-field col s12 center-align">
+                                    <button type="submit" class="waves-effect btn blue" name="submit_button"
+                                        value="Treatment">Add</button>
+                                </div>
+                                <div class="col s12 center-align">
+                                    <a href="#!"
+                                        class="modal-action modal-close waves-effect waves-blue btn-flat">Close</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

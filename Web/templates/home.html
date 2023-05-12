@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+  <title>Chest X-Ray Prediction</title>
+</head>
+
+<body>
+  <main>
+    <div id="nav-placeholder">
+    </div>
+    <script>
+      $(function () {
+        $("#nav-placeholder").load("{{url_for('static', filename='css/nav.html')}}");
+      });
+    </script>
+    <div class="container" style="padding-top: 5rem;">
+      <div class="row">
+        <div class="col s6 offset-s3">
+          <div style="padding: 35px;" align="center" class="card">
+            <div class="row">
+              <div class="center card-title">
+                <b>Features</b>
+              </div>
+            </div>
+
+            <div class="row">
+              <a href="/choose">
+                <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                  <i class="blue-text text-darken-1 large material-icons">assignment_ind</i>
+                  <span class="blue-text text-darken-1">
+                    <h5>Predict</h5>
+                  </span>
+                </div>
+              </a>
+              <div class="col s1">&nbsp;</div>
+              <div class="col s1">&nbsp;</div>
+
+              <a href="/patients">
+                <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
+                  <i class="blue-text text-darken-1 large material-icons">people</i>
+                  <span class="blue-text text-darken-1">
+                    <h5>Patients</h5>
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+  </main>
+</body>
+
+</html>

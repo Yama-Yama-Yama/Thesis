@@ -1,0 +1,29 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.sidenav').sidenav();
+    });
+</script>
+
+<nav class="blue darken-1" style="padding:0px 10px; position: fixed;">
+    <div class="nav-wrapper">
+        <a href="/home" class="brand-logo"><img class="responsive-img" src="static/logo/Logo3.png" alt="Logo" width="65"
+                height="65"></a>
+
+        <a href="#" class="sidenav-trigger" data-target="mobile-nav">
+            <i class="material-icons">menu</i>
+        </a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="/">Home</a></li>
+            <li><a href="/choose">Predict</a></li>
+            <li><a href="/patients">Patients</a></li>
+        </ul>
+    </div>
+</nav>
+<ul class="sidenav" id="mobile-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/choose">Predict</a></li>
+    <li><a href="/patients">Patients</a></li>
+</ul>
